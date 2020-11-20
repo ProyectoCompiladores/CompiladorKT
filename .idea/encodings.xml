@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/controlador/ControladorVentana.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/gui/VentanaCompilador.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/semantico/AnalizadorSemantico.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/AnalizadorSintactico.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/AsignacionVariable.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/Ciclo.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/Condicional.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/CuerpoClase.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/DeclaracionVariable.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/ExpresionAritmetica.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/Funcion.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/Lectura.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/LlamadoFuncion.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/Retorno.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/SentenciaDecremento.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/SentenciaIncremento.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/Termino.kt" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/sintaxis/UnidadCompilacion.kt" charset="windows-1252" />
+  </component>
+</project>
