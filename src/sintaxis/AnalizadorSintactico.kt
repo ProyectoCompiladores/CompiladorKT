@@ -41,13 +41,13 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es unidad de compilacion
      *
-     * <[UnidadCompilacion]>::= clase identificadorClase grupadorIzquierdo
-     * <[CuerpoClase]> agrupadorDerechoa
+     * <[ UnidadCompilacion]>::= clase identificadorClase grupadorIzquierdo
+     * <[ CuerpoClase]> agrupadorDerechoa
      *
      * @return unidadDeCompilacion{@link UnidadCompilacion}
      */
     private fun esUnidadDeCompilacion(): UnidadCompilacion? {
-        val unidadCompilacion: UnidadCompilacion
+        val unidadCompilacion: UnidadCompilacion;
         if (tokenActual.lexema == "clase") {
             val clase = tokenActual
             obtenerSiguienteToken()
@@ -87,8 +87,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es cuerpo de clase
      *
-     * <[CuerpoClase]>::= <[Funcion]> [<[CuerpoClase]>] |
-     * <[DeclaracionVariable]> [<[CuerpoClase]>]
+     * <[CuerpoClase ]>::= <[Funcion ]> [<[CuerpoClase ]>] |
+     * <[DeclaracionVariable ]> [<[CuerpoClase ]>]
      *
      * @return cuerpoClase{@link CuerpoClase}
      */
@@ -115,9 +115,9 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una funcion
      *
-     * <[Funcion]>::= visibilidad <[TipoRetorno]> funapp
-     * identificadorFuncion parentesisIzquierdo <"Lista"[Parametro]>
-     * parentesisDerecho agrupadorIzquierdo <"Lista" [Sentencia]>
+     * <[Funcion ]>::= visibilidad <[TipoRetorno ]> funapp
+     * identificadorFuncion parentesisIzquierdo <"Lista"[Parametro ]>
+     * parentesisDerecho agrupadorIzquierdo <"Lista" [Sentencia ]>
      * agrupadorDerecho
      *
      * @return funcion{@link Funcion}
@@ -326,7 +326,7 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un tipo de retorno
      *
-     * <[TipoRetorno]>::= sr | [<{link TipoDato}>]
+     * <[TipoRetorno ]>::= sr | [<{link TipoDato}>]
      *
      * @return tipoRetorno{@link TipoRetorno}
      */
@@ -356,8 +356,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un parametro
      *
-     * <"Lista"[Parametro]>::= <[Parametro]> ["|"
-     * <"Lista"[Parametro]>] <[Parametro]>::= <{link TipoDato}>
+     * <"Lista"[Parametro ]>::= <[Parametro ]> ["|"
+     * <"Lista"[Parametro ]>] <[Parametro ]>::= <{link TipoDato}>
      * [$arr()] identificadorVariable
      *
      * @return parametro{@link Parametro}
@@ -392,12 +392,12 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una sentencia
      *
-     * <"List"[Sentencia]>::= <[Sentencia]>[<"List"[Sentencia]>]
-     * <[Sentencia]>::= <[Condicional]> | <[Ciclo]> |
-     * <[Retorno]> | <[Impresion]> | <[Lectura]> |
-     * <[DeclaracionVariable]> | <[AsignacionVariable]> |
-     * <[SentenciaIncremento]> | <{link SentenciDecremento}>|
-     * <[LlamadoFuncion]>
+     * <"List"[Sentencia ]>::= <[ Sentencia]>[<"List"[ Sentencia]>]
+     * <[Sentencia ]>::= <[Condicional ]> | <[Ciclo ]> |
+     * <[Retorno ]> | <[Impresion ]> | <[ Lectura]> |
+     * <[DeclaracionVariable ]> | < [ AsignacionVariable]> |
+     * <[SentenciaIncremento ]> | <{link SentenciDecremento}>|
+     * <[LlamadoFuncion ] >
      *
      * @return sentencia{@link Sentencia}
      */
@@ -461,10 +461,10 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un condicional
      *
-     * <[Condicional]>::= pregunta parentesisIzquierdo
-     * <[ExpresionLogica]> parentesisDerecho agrupadorIzquierdo <"Lista"
-     * [Sentencia]> agrupadorDerecho [contrario agrupadorIzquierdo <"Lista"
-     * [Sentencia]> agrupadorDerecho]
+     * <[Condicional ]>::= pregunta parentesisIzquierdo
+     * <[ExpresionLogica ] > parentesisDerecho agrupadorIzquierdo <"Lista"
+     * [Sentencia ]> agrupadorDerecho [contrario agrupadorIzquierdo <"Lista"
+     * [Sentencia ]> agrupadorDerecho]
      *
      * @return condicional{@link Condicional}
      */
@@ -545,8 +545,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una expresion
      *
-     * <[Expresion]> ::= <[ExpresionLogica]> |
-     * <[ExpresionRelacional]> | <[ExpresionRelacional]>
+     * <[Expresion ]> ::= <[ExpresionLogica ]> |
+     * <[ExpresionRelacional ]> | <[ ExpresionRelacional]>
      *
      * @return expresion{@link Expresion}
      */
@@ -578,8 +578,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una expresion logica
      *
-     * <[ExpresionLogica]>::= <[ExpresionRelacional]> [operadorLogico
-     * <[ExpresionLogica]>] | parentesisIzquierdo <[ExpresionLogica]>
+     * <[ExpresionLogica ]>::= <[ExpresionRelacional ]> [operadorLogico
+     * <[ExpresionLogica ]>] | parentesisIzquierdo <[ ExpresionLogica]>
      * parentesisDerecho
      *
      * @return expresionLogica{@link ExpresionLogica}
@@ -629,9 +629,9 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una expresion relacional
      *
-     * <[ExpresionRelacional]>::= <[ExpresionAritmetica]>
-     * [operadorRelacional <[ExpresionRelacional]>] | parentesisIzquierdo
-     * <[ExpresionRelacional]> parentesisDerecho
+     * <[ExpresionRelacional ]>::= <[ ExpresionAritmetica]>
+     * [operadorRelacional <[ ExpresionRelacional]>] | parentesisIzquierdo
+     * <[ExpresionRelacional ]> parentesisDerecho
      *
      * @return expresionLogica{@link ExpresionRelacional}
      */
@@ -796,8 +796,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un llamado a una funcion
      *
-     * <[LlamadoFuncion]>::= identificadorFuncion parentesisIzquierdo <"Lista"
-     * [Termino]> parentesisDerecho fin
+     * <[LlamadoFuncion ]>::= identificadorFuncion parentesisIzquierdo <"Lista"
+     * [Termino ]> parentesisDerecho fin
      *
      * @return llamadoFuncion{@link LlamadoFuncion}
      */
@@ -880,7 +880,6 @@ class AnalizadorSintactico(
                             reportarError("Falta parentesis derecho", tokenActual.fila, tokenActual.columna,
                                     tokenActual.columnaReal)
                         }
-                    } else {
                     }
                 } else {
                     reportarError("Falta parentesis izquierdo", tokenActual.fila, tokenActual.columna,

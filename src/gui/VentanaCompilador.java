@@ -34,15 +34,13 @@ import sintaxis.AnalizadorSintactico;
  */
 public class VentanaCompilador extends JFrame implements ActionListener, KeyListener {
 
-	private JPanel panelEditor, panelErrores, panelSimbolos, panelErroresSintacticos, panelErroresSemanticos, panel,
-			panelArbol;
+	private JPanel panelEditor, panelErrores, panelSimbolos, panelErroresSintacticos, panelErroresSemanticos, panel;
 	private JTable errores, simbolos, erroresSintacticos;
-	private JScrollPane scroll, scrollArbol, scrollSimbolos, scrollErrores, scrollErroresSintacticos,
+	private JScrollPane scroll, scrollSimbolos, scrollErrores, scrollErroresSintacticos,
 			scrollErroresSemanticos;
-	private JTree arbolVisual;
-	private JMenu mnEjecutar, mnArchivo, mnTema;
+	private JMenu mnEjecutar, mnArchivo;
 	private JMenuBar menuBar;
-	private JMenuItem mntmAbrir, mntmEjecutar, mntmCompilar, mntmNuevo, mntmGuardar, mntmOscuro, mntmClaro;
+	private JMenuItem mntmAbrir, mntmEjecutar, mntmCompilar, mntmNuevo, mntmGuardar;
 	private JTextArea textEditor, erroresSemanticos;
 	private JEditorPane editor, linea;
 	private ControladorVentana controladorVentana;
@@ -106,21 +104,13 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 		panelErroresSemanticos.setBorder(
 				new TitledBorder(null, "Errores semánticos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		panelArbol = new JPanel(null);
-		panelArbol.setBounds(0, 0, 1280, 720);
-		panelArbol.setBorder(new TitledBorder(null, "Arbol", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(tabbedPane);
 
 		tabbedPane.addTab("Compilador", null, panelEditor, null);
 		tabbedPane.addTab("Simbolos", null, panelSimbolos, null);
 		tabbedPane.addTab("Errores", null, panelErrores, null);
-		tabbedPane.addTab("Arbol", null, panelArbol, null);
 		tabbedPane.addTab("Errores sintácticos", null, panelErroresSintacticos, null);
 		tabbedPane.addTab("Errores semánticos", null, panelErroresSemanticos, null);
-
-		// Arbol
-		arbolVisual = new JTree(new DefaultMutableTreeNode("Arbol visual"));
-		arbolVisual.setBounds(0, 0, 1280, 720);
 
 		// Panel editor
 		linea = new JEditorPane();
@@ -140,10 +130,6 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 		mnEjecutar.setFont(new Font("Century Gothic", Font.BOLD, 13));
 		menuBar.add(mnEjecutar);
 
-		mnTema = new JMenu("Tema");
-		mnTema.setFont(new Font("Century Gothic", Font.BOLD, 13));
-		menuBar.add(mnTema);
-
 		mntmAbrir = new JMenuItem("Abrir");
 		mntmAbrir.addActionListener(this);
 		mnArchivo.add(mntmAbrir);
@@ -155,14 +141,6 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 		mntmGuardar = new JMenuItem("Guardar");
 		mntmGuardar.addActionListener(this);
 		mnArchivo.add(mntmGuardar);
-
-		mntmClaro = new JMenuItem("Claro");
-		mntmClaro.addActionListener(this);
-		mnTema.add(mntmClaro);
-
-		mntmOscuro = new JMenuItem("Oscuro");
-		mntmOscuro.addActionListener(this);
-		mnTema.add(mntmOscuro);
 
 		mntmEjecutar = new JMenuItem("Ejecutar");
 		mntmEjecutar.addActionListener(this);
@@ -178,9 +156,6 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 		scroll.setBounds(2, 37, 1253, 601);
 		panelEditor.add(scroll);
 
-		scrollArbol = new JScrollPane(arbolVisual);
-		scrollArbol.setBounds(2, 37, 1253, 601);
-		panelArbol.add(scrollArbol);
 
 		panel = new JPanel();
 		scroll.setViewportView(panel);
@@ -270,12 +245,8 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 			controladorVentana.compilar();
 		} else if (e.getSource() == mntmEjecutar) {
 			controladorVentana.ejecutar();
-		} else if (e.getSource() == mntmOscuro) {
-			controladorVentana.ponerOscuro();
 		} else if (e.getSource() == mntmNuevo) {
 			controladorVentana.crear();
-		} else if (e.getSource() == mntmClaro) {
-			controladorVentana.ponerClaro();
 		}
 	}
 
@@ -407,29 +378,6 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 		this.simbolos = simbolos;
 	}
 
-	public JMenu getMnTema() {
-		return mnTema;
-	}
-
-	public void setMnTema(JMenu mnTema) {
-		this.mnTema = mnTema;
-	}
-
-	public JMenuItem getMntmOscuro() {
-		return mntmOscuro;
-	}
-
-	public void setMntmOscuro(JMenuItem mntmOscuro) {
-		this.mntmOscuro = mntmOscuro;
-	}
-
-	public JMenuItem getMntmClaro() {
-		return mntmClaro;
-	}
-
-	public void setMntmClaro(JMenuItem mntmClaro) {
-		this.mntmClaro = mntmClaro;
-	}
 
 	public AnalizadorLexico getAnalizadorLexico() {
 		return analizadorLexico;
@@ -447,28 +395,7 @@ public class VentanaCompilador extends JFrame implements ActionListener, KeyList
 		this.analizadorSintactico = analizadorSintactico;
 	}
 
-	/**
-	 * @return the panelArbol
-	 */
-	public JPanel getPanelArbol() {
-		return panelArbol;
-	}
 
-	/**
-	 * @param panelArbol
-	 *            the panelArbol to set
-	 */
-	public void setPanelArbol(JPanel panelArbol) {
-		this.panelArbol = panelArbol;
-	}
-
-	public JTree getArbolVisual() {
-		return arbolVisual;
-	}
-
-	public void setArbolVisual(JTree arbolVisual) {
-		this.arbolVisual = arbolVisual;
-	}
 
 	/**
 	 * @return the scrollSimbolos
