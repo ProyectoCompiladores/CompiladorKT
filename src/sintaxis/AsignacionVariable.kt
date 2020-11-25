@@ -26,20 +26,7 @@ class AsignacionVariable
          */
         var termino: Termino) : Sentencia() {
 
-    /**
-     * Método para obtener el árbol de visual de la asignación de variable.
-     */
-    override var arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Asignación variable")
-            nodo.add(DefaultMutableTreeNode(identificadorVariable.lexema))
-            nodo.add(DefaultMutableTreeNode(operadorAsignacion.lexema))
-            nodo.add(termino.arbolVisual)
-            return nodo
-        }
-        set(arbolVisual) {
-            super.arbolVisual = arbolVisual
-        }
+
 
 
 

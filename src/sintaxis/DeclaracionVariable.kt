@@ -78,28 +78,5 @@ class DeclaracionVariable : Sentencia {
         this.listaId = listaId
     }
 
-    /**
-     * Método para retornar el nodo de un arbol visual
-     *
-     * @return
-     */
-    override var arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Declaracion variable")
-            if (visibilidad != null) {
-                nodo.add(DefaultMutableTreeNode(visibilidad!!.lexema))
-            }
-            if (arreglo != null) {
-                nodo.add(DefaultMutableTreeNode(arreglo!!.lexema))
-            }
-            nodo.add(DefaultMutableTreeNode(tipo.lexema))
-            for (id in listaId) {
-                nodo.add(DefaultMutableTreeNode(id.lexema))
-            }
-            return nodo
-        }
-        set(arbolVisual) {
-            super.arbolVisual = arbolVisual
-        }
 
 }

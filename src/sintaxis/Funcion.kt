@@ -244,31 +244,4 @@ class Funcion {
                 + ", palabraReservadaFuncion=" + palabraReservadaFuncion + "]")
     }
 
-    /**
-     * Metodo que permite crear el arbol grafico de una funcion
-     *
-     * @return
-     */
-    val arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Funcion")
-            if (visibilidad != null) {
-                nodo.add(DefaultMutableTreeNode(visibilidad!!.lexema))
-            }
-            nodo.add(tipoRetorno.arbolVisual)
-            nodo.add(DefaultMutableTreeNode(palabraReservadaFuncion.lexema))
-            nodo.add(DefaultMutableTreeNode(identificadorFuncion.lexema))
-            if (listaParametros != null) {
-                for (parametro in listaParametros!!) {
-                    nodo.add(parametro.arbolVisual)
-                }
-            }
-            if (listaSentencias != null) {
-                for (sentencia in listaSentencias!!) {
-                    nodo.add(sentencia.arbolVisual)
-                }
-            }
-            return nodo
-        }
-
 }

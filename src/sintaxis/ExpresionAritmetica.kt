@@ -64,18 +64,6 @@ class ExpresionAritmetica : Expresion {
 
 
 
-    fun getArbolVisual(nodo: DefaultMutableTreeNode): DefaultMutableTreeNode {
-        if (termino != null) {
-            nodo.add(termino!!.arbolVisual)
-            if (opAritmetico != null) {
-                nodo.add(DefaultMutableTreeNode(opAritmetico!!.lexema))
-                if (expArt != null) {
-                    return expArt!!.getArbolVisual(nodo)
-                }
-            }
-        }
-        return nodo
-    }
 
 
 }

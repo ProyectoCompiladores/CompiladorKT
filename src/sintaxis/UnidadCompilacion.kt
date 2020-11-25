@@ -52,18 +52,7 @@ class UnidadCompilacion
                 + identificadorClase + ", cuerpoClase=" + cuerpoClase + "]")
     }
 
-    /**
-     * Método para retornar el nodo de un arbol visual
-     * @return
-     */
-    val arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Unidad de compilacion")
-            nodo.add(DefaultMutableTreeNode(palabraReservadaClase.lexema))
-            nodo.add(DefaultMutableTreeNode(identificadorClase.lexema))
-            nodo.add(cuerpoClase.arbolVisual)
-            return nodo
-        }
+
 
 
 }

@@ -92,48 +92,5 @@ class CuerpoClase {
         }
     }
 
-    /**
-     * Método para un nodo proviniente de otro cuerpo de clase
-     *
-     * @param node
-     * @return
-     */
-    fun getArbolVisual(nodo: DefaultMutableTreeNode): DefaultMutableTreeNode {
-        if (funcion != null) {
-            nodo.add(funcion!!.arbolVisual)
-            if (cuerpoClase != null) {
-                return cuerpoClase!!.getArbolVisual(nodo)
-            }
-        } else if (declaracionVariable != null) {
-            nodo.add(declaracionVariable!!.arbolVisual)
-            if (cuerpoClase != null) {
-                return cuerpoClase!!.getArbolVisual(nodo)
-            }
-        }
-        return nodo
-    }
-
-    /**
-     * Método para retornar de otro cuerpo de clase
-     *
-     * @param node
-     * @return
-     */
-    val arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Cuerpo clase")
-            if (funcion != null) {
-                nodo.add(funcion!!.arbolVisual)
-                if (cuerpoClase != null) {
-                    return cuerpoClase!!.getArbolVisual(nodo)
-                }
-            } else if (declaracionVariable != null) {
-                nodo.add(declaracionVariable!!.arbolVisual)
-                if (cuerpoClase != null) {
-                    return cuerpoClase!!.getArbolVisual(nodo)
-                }
-            }
-            return nodo
-        }
 
 }

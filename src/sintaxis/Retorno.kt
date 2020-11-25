@@ -32,16 +32,4 @@ class Retorno
     /**
      * @return the termino
      */
-    override var arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Retorno")
-            nodo.add(DefaultMutableTreeNode(retorno.lexema))
-            nodo.add(termino.arbolVisual)
-            return nodo
-        }
-        set(arbolVisual) {
-            super.arbolVisual = arbolVisual
-        }
-
-
 }

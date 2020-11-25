@@ -50,21 +50,6 @@ class LlamadoFuncion : Sentencia {
                 + "]")
     }
 
-    override var arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Llamado funcion")
-            nodo.add(DefaultMutableTreeNode(identificadorFuncion.lexema))
-            if (listaArgumentos != null) {
-                for (termino in listaArgumentos!!) {
-                    nodo.add(termino.arbolVisual)
-                }
-            }
-            return nodo
-        }
-        set(arbolVisual) {
-            super.arbolVisual = arbolVisual
-        }
-
 
 
 }

@@ -50,31 +50,6 @@ class Termino {
         return "Termino [termino=$termino]"
     }
 
-    /**
-     * Arbol de Termino
-     *
-     * @return nodo
-     */
-    val arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Termino")
-            if (termino != null) {
-                nodo.add(DefaultMutableTreeNode(termino!!.lexema))
-                return nodo
-            }
-            if (llamadoFuncion != null) {
-                nodo.add(llamadoFuncion!!.arbolVisual)
-                return nodo
-            }
-            if (valorAsignacion != null) {
-                nodo.add(valorAsignacion!!.arbolVisual)
-                return nodo
-            }
-            if (expresion != null) {
-                return nodo
-            }
-            return nodo
-        }
 
 
     fun llenarTablaSimbolos() {}

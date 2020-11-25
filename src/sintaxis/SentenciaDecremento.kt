@@ -27,15 +27,5 @@ class SentenciaDecremento
     /**
      * @return the decremento
      */
-    override var arbolVisual: DefaultMutableTreeNode
-        get() {
-            val nodo = DefaultMutableTreeNode("Decremento")
-            nodo.add(DefaultMutableTreeNode(identificadorVariable.lexema))
-            nodo.add(DefaultMutableTreeNode(decremento.lexema))
-            return nodo
-        }
-        set(arbolVisual) {
-            super.arbolVisual = arbolVisual
-        }
 
 }
