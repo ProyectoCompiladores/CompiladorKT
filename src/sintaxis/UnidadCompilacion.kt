@@ -1,6 +1,7 @@
 package sintaxis
 
 import lexico.Token
+import semantico.TablaSimbolos
 import java.util.*
 import javax.swing.tree.DefaultMutableTreeNode
 
@@ -11,10 +12,10 @@ class UnidadCompilacion
 /**
  * Constructor de la unidad de compilacion
  *
- *  [palabraReservadaClase]:
+ * @param palabraReservadaClase:
  * Palabra reservada del lexico {Clase}
- *  [identificadorClase]
- *  [cuerpoClase]
+ * @param identificadorClase
+ * @param cuerpoClase
  */(
         /**
          * @param palabraReservadaClase
@@ -52,7 +53,32 @@ class UnidadCompilacion
                 + identificadorClase + ", cuerpoClase=" + cuerpoClase + "]")
     }
 
+    /**
+     * Método para retornar el nodo de un arbol visual
+     * @return
+     */
+    val arbolVisual: DefaultMutableTreeNode
+        get() {
+            val nodo = DefaultMutableTreeNode("Unidad de compilacion")
+            nodo.add(DefaultMutableTreeNode(palabraReservadaClase.lexema))
+            nodo.add(DefaultMutableTreeNode(identificadorClase.lexema))
+            nodo.add(cuerpoClase.arbolVisual)
+            return nodo
+        }
 
+    fun analizarSemantica(ts: TablaSimbolos?, errores: ArrayList<String?>?) {
+        cuerpoClase.analizarSemantica(errores!!, ts)
+    }
 
+    fun llenarTablaSimbolos(ts: TablaSimbolos?) {
+        cuerpoClase.llenarTablaSimbolos(ts!!)
+    }
 
+    fun traducir(): String {
+        return """
+               import javax.swing.JOptionPane;
+               public class ${identificadorClase.lexema.substring(1)}{
+               ${cuerpoClase.traducir("\t")}}
+               """.trimIndent()
+    }
 }

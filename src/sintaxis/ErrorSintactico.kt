@@ -2,10 +2,10 @@ package sintaxis
 
 class ErrorSintactico
 /**
- *  [mensaje]
- *  [fila]
- *  [columna]
- *  [columnaReal]
+ * @param mensaje
+ * @param fila
+ * @param columna
+ * @param columnaReal
  */(
         /**
          * @param mensaje the mensaje to set

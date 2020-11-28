@@ -1,6 +1,8 @@
 package sintaxis
 
 import lexico.Token
+import semantico.Simbolo
+import semantico.TablaSimbolos
 import sintaxis.Ciclo
 import sintaxis.Condicional
 import java.util.*
@@ -16,9 +18,9 @@ class Condicional : Sentencia {
     /**
      * Constructor que crea condicional sin caso contrario
      *
-     *  [pregunta]
-     *  [expresionLogica]
-     *  [listaSentencia]
+     * @param pregunta
+     * @param expresionLogica
+     * @param listaSentencia
      */
     constructor(pregunta: Token, expresionLogica: ExpresionLogica, listaSentencia: ArrayList<Sentencia>) : super() {
         this.pregunta = pregunta
@@ -54,4 +56,86 @@ class Condicional : Sentencia {
         }
     }
 
+    /**
+     * Metodo que permite dibujar el arbol grafico de condicional
+     */
+    override fun getArbolVisual(): DefaultMutableTreeNode {
+        val nodo = DefaultMutableTreeNode("Condicional")
+        nodo.add(DefaultMutableTreeNode(pregunta.lexema))
+        nodo.add(expresionLogica.getArbolVisual())
+        for (sentencia in listaSentencia) {
+            nodo.add(sentencia.getArbolVisual())
+        }
+        if (contrario != null) {
+            nodo.add(DefaultMutableTreeNode(contrario!!.lexema))
+            for (sentencia0 in listaSentencia0!!) {
+                nodo.add(sentencia0.getArbolVisual())
+            }
+        }
+        return nodo
+    }
+
+    override fun analizarSemantica(errores: ArrayList<String?>?, ts: TablaSimbolos?, ambito: Simbolo?) {
+        expresionLogica.analizarSemantica(errores, ts, ambito)
+        val nuevoAmbito = Simbolo(ambito!!.nombre + "condicional" + ambito.numeroCondicional, ambito.tipo, ambito.tipos)
+        nuevoAmbito.ambitoPadre = ambito
+        for (sentencia in listaSentencia) {
+            if (!nuevoAmbito.retorno) {
+                sentencia.analizarSemantica(errores, ts, nuevoAmbito)
+                if (sentencia.javaClass == Ciclo::class.java) {
+                    nuevoAmbito.numeroCiclo = nuevoAmbito.numeroCiclo + 1
+                } else if (sentencia.javaClass == Condicional::class.java) {
+                    nuevoAmbito.numeroCondicional = nuevoAmbito.numeroCondicional + 1
+                }
+            } else {
+                errores?.add("La función " + ambito.nombre + " ya ha retornado y el código es inalcanzable")
+            }
+        }
+        nuevoAmbito.nombre = nuevoAmbito.nombre + "contrario" + ambito.numeroCondicional
+        if (listaSentencia0 != null) {
+            nuevoAmbito.retorno = false
+            for (sentencia in listaSentencia0!!) {
+                if (!nuevoAmbito.retorno) {
+                    sentencia.analizarSemantica(errores, ts, nuevoAmbito)
+                    if (sentencia.javaClass == Ciclo::class.java) {
+                        nuevoAmbito.numeroCiclo = nuevoAmbito.numeroCiclo + 1
+                    } else if (sentencia.javaClass == Condicional::class.java) {
+                        nuevoAmbito.numeroCondicional = nuevoAmbito.numeroCondicional + 1
+                    }
+                } else {
+                    errores?.add("La función " + ambito.nombre + " ya ha retornado y el código es inalcanzable")
+                }
+            }
+        }
+    }
+
+    override fun llenarTablaSimbolos(ts: TablaSimbolos?, ambito: Simbolo?) {}
+    override fun traducir(identacion: String?, global: Boolean): String? {
+        var sentencias = ""
+        for (sentencia in listaSentencia) {
+            sentencias += """
+                ${sentencia.traducir(identacion, false)};
+                
+                """.trimIndent()
+        }
+        var sentencias0 = ""
+        for (sentencia in listaSentencia0!!) {
+            sentencias0 += """
+                ${sentencia.traducir(identacion, false)};
+                
+                """.trimIndent()
+        }
+        return if (listaSentencia0 != null) {
+            """
+     ${identacion}if(${expresionLogica.traducir()}){
+     $sentencias$identacion} else{
+     $sentencias0$identacion}
+     """.trimIndent()
+        } else {
+            """
+     ${identacion}if(${expresionLogica.traducir()}){
+     $sentencias$identacion}
+     """.trimIndent()
+        }
+    }
 }

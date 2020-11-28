@@ -1,4 +1,7 @@
 package sintaxis
+
+import semantico.Simbolo
+import semantico.TablaSimbolos
 import java.util.*
 import javax.swing.tree.DefaultMutableTreeNode
 
@@ -92,5 +95,107 @@ class CuerpoClase {
         }
     }
 
+    /**
+     * Método para un nodo proviniente de otro cuerpo de clase
+     *
+     * @param node
+     * @return
+     */
+    fun getArbolVisual(nodo: DefaultMutableTreeNode): DefaultMutableTreeNode {
+        if (funcion != null) {
+            nodo.add(funcion!!.getArbolVisual())
+            if (cuerpoClase != null) {
+                return cuerpoClase!!.getArbolVisual(nodo)
+            }
+        } else if (declaracionVariable != null) {
+            nodo.add(declaracionVariable!!.getArbolVisual())
+            if (cuerpoClase != null) {
+                return cuerpoClase!!.getArbolVisual(nodo)
+            }
+        }
+        return nodo
+    }
 
+    /**
+     * Método para retornar de otro cuerpo de clase
+     *
+     * @param node
+     * @return
+     */
+    val arbolVisual: DefaultMutableTreeNode
+        get() {
+            val nodo = DefaultMutableTreeNode("Cuerpo clase")
+            if (funcion != null) {
+                nodo.add(funcion!!.getArbolVisual())
+                if (cuerpoClase != null) {
+                    return cuerpoClase!!.getArbolVisual(nodo)
+                }
+            } else if (declaracionVariable != null) {
+                nodo.add(declaracionVariable!!.getArbolVisual())
+                if (cuerpoClase != null) {
+                    return cuerpoClase!!.getArbolVisual(nodo)
+                }
+            }
+            return nodo
+        }
+
+    fun analizarSemantica(errores: ArrayList<String?>, ts: TablaSimbolos?) {
+        if (funcion != null) {
+            funcion!!.analizarSemantica(errores, ts)
+            if (cuerpoClase != null) {
+                cuerpoClase!!.analizarSemantica(errores, ts)
+            }
+        } else if (declaracionVariable != null) {
+
+            if (cuerpoClase != null) {
+                cuerpoClase!!.analizarSemantica(errores, ts)
+            }
+
+        }
+    }
+
+    fun llenarTablaSimbolos(ts: TablaSimbolos) {
+        if (funcion != null) {
+            val tipos = ArrayList<String>()
+            if (funcion!!.listaParametros != null) {
+                for (param in funcion!!.listaParametros!!) {
+                    tipos.add(param.tipoDato.lexema)
+                }
+            }
+            funcion!!.ambito = ts.agregarFuncion(funcion!!.identificadorFuncion.lexema,
+                    funcion!!.tipoRetorno.tipoRetorno.lexema, tipos)
+            funcion!!.llenarTablaSimbolos(ts)
+            if (cuerpoClase != null) {
+                cuerpoClase!!.llenarTablaSimbolos(ts)
+            }
+        } else if (declaracionVariable != null) {
+            declaracionVariable!!.llenarTablaSimbolos(ts,null)
+            if (cuerpoClase != null) {
+                cuerpoClase!!.llenarTablaSimbolos(ts)
+            }
+
+        }
+    }
+
+    fun traducir(identacion: String?): String {
+        var codigo = ""
+        if (funcion != null) {
+            codigo += """
+                ${funcion!!.traducir(identacion!!)}
+                
+                """.trimIndent()
+            if (cuerpoClase != null) {
+                codigo += cuerpoClase!!.traducir(identacion)
+            }
+        } else if (declaracionVariable != null) {
+            codigo += """
+                ${declaracionVariable!!.traducir(identacion!!, true)};
+                
+                """.trimIndent()
+            if (cuerpoClase != null) {
+                codigo += cuerpoClase!!.traducir(identacion)
+            }
+        }
+        return codigo
+    }
 }

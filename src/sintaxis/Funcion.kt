@@ -1,6 +1,8 @@
 package sintaxis
 
 import lexico.Token
+import semantico.Simbolo
+import semantico.TablaSimbolos
 import sintaxis.Ciclo
 import sintaxis.Condicional
 import java.util.*
@@ -58,7 +60,14 @@ class Funcion {
      * the listaSentencias to set
      */
     var listaSentencias: ArrayList<Sentencia>? = null
-
+    /**
+     * @return the ambito
+     */
+    /**
+     * @param ambito
+     * the ambito to set
+     */
+    var ambito: Simbolo? = null
 
     /**
      * Funcion con visibilidad, lista de parametros y sentencias
@@ -244,4 +253,102 @@ class Funcion {
                 + ", palabraReservadaFuncion=" + palabraReservadaFuncion + "]")
     }
 
+    /**
+     * Metodo que permite crear el arbol grafico de una funcion
+     *
+     * @return
+     */
+     fun getArbolVisual(): DefaultMutableTreeNode {
+
+            val nodo = DefaultMutableTreeNode("Funcion")
+            if (visibilidad != null) {
+                nodo.add(DefaultMutableTreeNode(visibilidad!!.lexema))
+            }
+            nodo.add(tipoRetorno.arbolVisual)
+            nodo.add(DefaultMutableTreeNode(palabraReservadaFuncion.lexema))
+            nodo.add(DefaultMutableTreeNode(identificadorFuncion.lexema))
+            if (listaParametros != null) {
+                for (parametro in listaParametros!!) {
+                    nodo.add(parametro.arbolVisual)
+                }
+            }
+            if (listaSentencias != null) {
+                for (sentencia in listaSentencias!!) {
+                    nodo.add(sentencia.getArbolVisual())
+                }
+            }
+            return nodo
+        }
+
+    fun analizarSemantica(errores: ArrayList<String?>, ts: TablaSimbolos?) {
+        for (sentencia in listaSentencias!!) {
+            if (!ambito!!.retorno) {
+                sentencia.analizarSemantica(errores, ts!!, ambito!!)
+                if (sentencia.javaClass == Ciclo::class.java) {
+                    ambito!!.numeroCiclo = ambito!!.numeroCiclo + 1
+                } else if (sentencia.javaClass == Condicional::class.java) {
+                    ambito!!.numeroCondicional = ambito!!.numeroCondicional + 1
+                }
+            } else {
+                errores.add("La función " + ambito!!.nombre + " ya ha retornado y el código es inalcanzable")
+            }
+        }
+        if (!ambito!!.retorno && tipoRetorno.tipoRetorno.lexema != "sr") {
+            errores.add("La función no tiene algún retorno o falta otros casos de retorno")
+        }
+    }
+
+    fun llenarTablaSimbolos(ts: TablaSimbolos) {
+        if (listaParametros != null) {
+            for (parametro in listaParametros!!) {
+                ts.agregarSimbolo(parametro.idenVariable.lexema, parametro.tipoDato.lexema, ambito!!)
+            }
+        }
+        if (listaSentencias != null) {
+            for (sentencia in listaSentencias!!) {
+                sentencia.llenarTablaSimbolos(ts, ambito!!)
+            }
+        }
+    }
+
+    fun traducir(identacion: String): String {
+        var tipo = ""
+        tipo = when (tipoRetorno.tipoRetorno.lexema) {
+            "ltr" -> "char"
+            "ntr" -> "int"
+            "pntdec" -> "double"
+            "ltrarr" -> "String"
+            "binary" -> "boolean"
+            "sr" -> "void"
+            else -> ""
+        }
+        var sentencias = ""
+        if (listaSentencias != null) {
+            for (sentencia in listaSentencias!!) {
+                sentencias += sentencia.traducir(identacion + "\t", false)
+                sentencias += if (sentencia.javaClass == Condicional::class.java || sentencia.javaClass == Ciclo::class.java) {
+                    "\n"
+                } else {
+                    ";\n"
+                }
+            }
+        }
+        val nombreFuncion = identificadorFuncion.lexema
+        if (nombreFuncion == "funmainrealizar" && tipo == "void") {
+            return """
+                ${identacion}public static void main(String[] args){
+                $sentencias$identacion}
+                """.trimIndent()
+        }
+        val visibilidad = if (visibilidad!!.lexema == "visible") "public" else "private"
+        var variables = ""
+        if (listaParametros != null) {
+            for (parametro in listaParametros!!) {
+                variables += parametro.traducir() + ", "
+            }
+            variables = variables.substring(0, variables.length - 2)
+        }
+        return """$identacion$visibilidad static $tipo $nombreFuncion($variables) {
+$sentencias$identacion}"""
+    }
 }

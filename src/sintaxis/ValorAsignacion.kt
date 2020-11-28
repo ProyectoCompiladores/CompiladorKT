@@ -8,7 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode
  */
 class ValorAsignacion(
         /**
-         * [tipoDato] the tipoDato to set
+         * @param tipoDato the tipoDato to set
          */
         var tipoDato: Token) {
     /**

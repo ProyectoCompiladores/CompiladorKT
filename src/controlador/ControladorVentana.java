@@ -23,9 +23,11 @@ import javax.swing.tree.DefaultTreeModel;
 import gui.VentanaCompilador;
 import lexico.AnalizadorLexico;
 import lexico.Token;
+import semantico.AnalizadorSemantico;
+import semantico.TablaSimbolos;
 import sintaxis.AnalizadorSintactico;
 import sintaxis.ErrorSintactico;
-
+import traductor.Traductor;
 
 /**
  * Esta clase se encarga de controlar la interfaz grafica y sus eventos
@@ -38,7 +40,7 @@ public class ControladorVentana {
 	/**
 	 * Contructor del controlador de la ventana, recibe la ventana a controlar
 	 * 
-	 *  [ventanaCompilador]
+	 * @param ventanaCompilador
 	 */
 	public ControladorVentana(VentanaCompilador ventanaCompilador) {
 		this.ventanaCompilador = ventanaCompilador;
@@ -163,13 +165,25 @@ public class ControladorVentana {
 					new AnalizadorSintactico(ventanaCompilador.getAnalizadorLexico().getTablaSimbolos()));
 			ventanaCompilador.getAnalizadorSintactico().analizar();
 			agregarErroresSintacticos();
-
+			agregarArbolVisual();
 			if (ventanaCompilador.getAnalizadorSintactico().getTablaErrores().size() == 0) {
 				ArrayList<String> errores = new ArrayList<>();
-				JOptionPane.showMessageDialog(null, "No hay errores Sintacticos");
+				ventanaCompilador.setAnalizadorSemantico(
+						new AnalizadorSemantico(ventanaCompilador.getAnalizadorSintactico().getUnidadCompilacion(),
+								new TablaSimbolos(errores), errores));
+				ventanaCompilador.getAnalizadorSemantico().llenarTablaSimbolos();
+				ventanaCompilador.getAnalizadorSemantico().analizarSemantica();
+				agregarErroresSemanticos();
+				if (ventanaCompilador.getAnalizadorSemantico().getErrores().size() == 0) {
+					ventanaCompilador.setCompilado(true);
+					File f = new File("src/" + ventanaCompilador.getAnalizadorSintactico().getUnidadCompilacion()
+							.getIdentificadorClase().getLexema().substring(1) + ".class");
+					f.delete();
 				}
 			}
 		}
+
+	}
 
 	public void ejecutar() {
 		if (ventanaCompilador.isCompilado()) {
@@ -177,6 +191,8 @@ public class ControladorVentana {
 				File f = new File("src/" + ventanaCompilador.getAnalizadorSintactico().getUnidadCompilacion()
 						.getIdentificadorClase().getLexema().substring(1) + ".java");
 				FileWriter fw = new FileWriter(f);
+				Traductor traducto = new Traductor(ventanaCompilador.getAnalizadorSintactico().getUnidadCompilacion());
+				fw.write(traducto.traducir());
 				fw.flush();
 				fw.close();
 				String comando = "javac.exe" + " "
@@ -199,7 +215,19 @@ public class ControladorVentana {
 		}
 	}
 
+	private void agregarErroresSemanticos() {
+		String errores = "";
+		for (String string : ventanaCompilador.getAnalizadorSemantico().getErrores()) {
+			errores += string + "\n";
+		}
 
+		ventanaCompilador.getErroresSemanticos().setText(errores);
+		ventanaCompilador.getErroresSemanticos().setBackground(ventanaCompilador.getEditor().getBackground());
+		ventanaCompilador.getErroresSemanticos().setForeground(ventanaCompilador.getEditor().getForeground());
+
+		JOptionPane.showMessageDialog(null, "Compilado con "
+				+ ventanaCompilador.getAnalizadorSemantico().getErrores().size() + " errores semanticos");
+	}
 
 	/**
 	 * Metodo para agregar simbolos a la tabla de la interfaz
@@ -292,6 +320,41 @@ public class ControladorVentana {
 				+ ventanaCompilador.getAnalizadorSintactico().getTablaErrores().size() + " errores sintacticos");
 	}
 
+	/**
+	 * Método de arbol visual
+	 */
+	private void agregarArbolVisual() {
+		ventanaCompilador.getArbolVisual().setModel(new DefaultTreeModel(
+		ventanaCompilador.getAnalizadorSintactico().getUnidadCompilacion().getArbolVisual()));
+	}
+
+	/**
+	 * Cambiar tema de la aplicacion
+	 */
+	public void ponerClaro() {
+		ventanaCompilador.getEditor().setBackground(Color.WHITE);
+		ventanaCompilador.getEditor().setForeground(Color.BLACK);
+		ventanaCompilador.getLinea().setBackground(Color.WHITE);
+		ventanaCompilador.getLinea().setForeground(Color.BLACK);
+		ventanaCompilador.getSimbolos().setBackground(Color.WHITE);
+		ventanaCompilador.getErrores().setBackground(Color.WHITE);
+		ventanaCompilador.getSimbolos().setForeground(Color.BLACK);
+		ventanaCompilador.getErrores().setForeground(Color.BLACK);
+	}
+
+	/**
+	 * Cambiar tema de la aplicacion
+	 */
+	public void ponerOscuro() {
+		ventanaCompilador.getEditor().setBackground(Color.BLACK);
+		ventanaCompilador.getEditor().setForeground(Color.WHITE);
+		ventanaCompilador.getLinea().setBackground(Color.BLACK);
+		ventanaCompilador.getLinea().setForeground(Color.WHITE);
+		ventanaCompilador.getSimbolos().setBackground(Color.BLACK);
+		ventanaCompilador.getErrores().setBackground(Color.BLACK);
+		ventanaCompilador.getSimbolos().setForeground(Color.WHITE);
+		ventanaCompilador.getErrores().setForeground(Color.WHITE);
+	}
 
 	/**
 	 * Insertar los numeros a partir de la escritura

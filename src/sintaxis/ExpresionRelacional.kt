@@ -1,6 +1,8 @@
 package sintaxis
 
 import lexico.Token
+import semantico.Simbolo
+import semantico.TablaSimbolos
 import java.util.*
 import javax.swing.tree.DefaultMutableTreeNode
 
@@ -65,5 +67,67 @@ class ExpresionRelacional : Expresion {
         this.expRelacional = expRelacional
     }
 
+    override fun getArbolVisual(): DefaultMutableTreeNode {
+        val nodo = DefaultMutableTreeNode("Expresion Relacional")
+        if (expAritmetica != null) {
+            nodo.add(expAritmetica!!.getArbolVisual())
+            if (expRelacional != null) {
+                nodo.add(DefaultMutableTreeNode(opRelacional!!.lexema))
+                return expRelacional!!.getArbolVisual(nodo)
+            }
+        } else {
+            if (expRelacional != null) {
+                return expRelacional!!.getArbolVisual(nodo)
+            }
+        }
+        return nodo
+    }
 
+    fun getArbolVisual(nodo: DefaultMutableTreeNode): DefaultMutableTreeNode {
+        if (expAritmetica != null) {
+            nodo.add(expAritmetica!!.getArbolVisual())
+            if (expRelacional != null) {
+                nodo.add(DefaultMutableTreeNode(opRelacional!!.lexema))
+                return expRelacional!!.getArbolVisual(nodo)
+            }
+        } else {
+            if (expRelacional != null) {
+                return expRelacional!!.getArbolVisual(nodo)
+            }
+        }
+        return nodo
+    }
+
+
+
+    override fun analizarSemantica(errores: ArrayList<String?>?, ts: TablaSimbolos?, ambito: Simbolo?) {
+        if (expRelacional != null) {
+            expRelacional!!.analizarSemantica(errores, ts, ambito)
+        }
+        if (expAritmetica != null) {
+            expAritmetica!!.analizarSemantica(errores, ts, ambito)
+        }
+    }
+
+    override fun llenarTablaSimbolos(ts: TablaSimbolos?) {}
+    override fun traducir(): String {
+        var operador = ""
+        if (opRelacional != null) {
+            when (opRelacional!!.lexema) {
+                "(>)" -> operador = ">"
+                "(<)" -> operador = "<"
+                "NOT(es)" -> operador = "!="
+                "(es)" -> operador = "=="
+                "(>es)" -> operador = ">="
+                "(<es)" -> operador = "<="
+                else -> {
+                }
+            }
+        }
+        return if (expRelacional != null) {
+            expAritmetica!!.traducir() + operador + expRelacional!!.traducir()
+        } else {
+            expAritmetica!!.traducir()
+        }
+    }
 }

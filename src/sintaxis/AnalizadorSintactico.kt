@@ -13,7 +13,7 @@ class AnalizadorSintactico(
      * @return the tablaSimbolos
      */
     /**
-     *  [tablaSimbolos]
+     * @param tablaSimbolos
      * the tablaSimbolos to set
      */
     /**
@@ -41,13 +41,13 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es unidad de compilacion
      *
-     * <[ UnidadCompilacion]>::= clase identificadorClase grupadorIzquierdo
-     * <[ CuerpoClase]> agrupadorDerechoa
+     * <[UnidadCompilacion]>::= clase identificadorClase grupadorIzquierdo
+     * <[CuerpoClase]> agrupadorDerechoa
      *
      * @return unidadDeCompilacion{@link UnidadCompilacion}
      */
     private fun esUnidadDeCompilacion(): UnidadCompilacion? {
-        val unidadCompilacion: UnidadCompilacion;
+        val unidadCompilacion: UnidadCompilacion
         if (tokenActual.lexema == "clase") {
             val clase = tokenActual
             obtenerSiguienteToken()
@@ -87,8 +87,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es cuerpo de clase
      *
-     * <[CuerpoClase ]>::= <[Funcion ]> [<[CuerpoClase ]>] |
-     * <[DeclaracionVariable ]> [<[CuerpoClase ]>]
+     * <[CuerpoClase]>::= <[Funcion]> [<[CuerpoClase]>] |
+     * <[DeclaracionVariable]> [<[CuerpoClase]>]
      *
      * @return cuerpoClase{@link CuerpoClase}
      */
@@ -115,9 +115,9 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una funcion
      *
-     * <[Funcion ]>::= visibilidad <[TipoRetorno ]> funapp
-     * identificadorFuncion parentesisIzquierdo <"Lista"[Parametro ]>
-     * parentesisDerecho agrupadorIzquierdo <"Lista" [Sentencia ]>
+     * <[Funcion]>::= visibilidad <[TipoRetorno]> funapp
+     * identificadorFuncion parentesisIzquierdo <"Lista"[Parametro]>
+     * parentesisDerecho agrupadorIzquierdo <"Lista" [Sentencia]>
      * agrupadorDerecho
      *
      * @return funcion{@link Funcion}
@@ -326,7 +326,7 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un tipo de retorno
      *
-     * <[TipoRetorno ]>::= sr | [<{link TipoDato}>]
+     * <[TipoRetorno]>::= sr | [<{link TipoDato}>]
      *
      * @return tipoRetorno{@link TipoRetorno}
      */
@@ -356,8 +356,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un parametro
      *
-     * <"Lista"[Parametro ]>::= <[Parametro ]> ["|"
-     * <"Lista"[Parametro ]>] <[Parametro ]>::= <{link TipoDato}>
+     * <"Lista"[Parametro]>::= <[Parametro]> ["|"
+     * <"Lista"[Parametro]>] <[Parametro]>::= <{link TipoDato}>
      * [$arr()] identificadorVariable
      *
      * @return parametro{@link Parametro}
@@ -392,12 +392,12 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una sentencia
      *
-     * <"List"[Sentencia ]>::= <[ Sentencia]>[<"List"[ Sentencia]>]
-     * <[Sentencia ]>::= <[Condicional ]> | <[Ciclo ]> |
-     * <[Retorno ]> | <[Impresion ]> | <[ Lectura]> |
-     * <[DeclaracionVariable ]> | < [ AsignacionVariable]> |
-     * <[SentenciaIncremento ]> | <{link SentenciDecremento}>|
-     * <[LlamadoFuncion ] >
+     * <"List"[Sentencia]>::= <[Sentencia]>[<"List"[Sentencia]>]
+     * <[Sentencia]>::= <[Condicional]> | <[Ciclo]> |
+     * <[Retorno]> | <[Impresion]> | <[Lectura]> |
+     * <[DeclaracionVariable]> | <[AsignacionVariable]> |
+     * <[SentenciaIncremento]> | <{link SentenciDecremento}>|
+     * <[LlamadoFuncion]>
      *
      * @return sentencia{@link Sentencia}
      */
@@ -461,16 +461,16 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un condicional
      *
-     * <[Condicional ]>::= pregunta parentesisIzquierdo
-     * <[ExpresionLogica ] > parentesisDerecho agrupadorIzquierdo <"Lista"
-     * [Sentencia ]> agrupadorDerecho [contrario agrupadorIzquierdo <"Lista"
-     * [Sentencia ]> agrupadorDerecho]
+     * <[Condicional]>::= pregunta parentesisIzquierdo
+     * <[ExpresionLogica]> parentesisDerecho agrupadorIzquierdo <"Lista"
+     * [Sentencia]> agrupadorDerecho [contrario agrupadorIzquierdo <"Lista"
+     * [Sentencia]> agrupadorDerecho]
      *
      * @return condicional{@link Condicional}
      */
     private fun esCondicional(): Condicional? {
         val condicional: Condicional
-        if (tokenActual.lexema.equals("pregunta")) {
+        if (tokenActual.lexema == "pregunta") {
             val pregunta = tokenActual
             obtenerSiguienteToken()
             if (tokenActual.categoria == Categoria.PARENTESIS_IZQUIERDO) {
@@ -485,7 +485,7 @@ class AnalizadorSintactico(
                             if (listaSentencia != null) {
                                 if (tokenActual.categoria == Categoria.AGRUPADOR_DERECHO) {
                                     obtenerSiguienteToken()
-                                    if (tokenActual.lexema.equals("contrario")) {
+                                    if (tokenActual.lexema == "contrario") {
                                         val contrario = tokenActual
                                         obtenerSiguienteToken()
                                         if (tokenActual.categoria == Categoria.AGRUPADOR_IZQUIERDO) {
@@ -545,8 +545,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una expresion
      *
-     * <[Expresion ]> ::= <[ExpresionLogica ]> |
-     * <[ExpresionRelacional ]> | <[ ExpresionRelacional]>
+     * <[Expresion]> ::= <[ExpresionLogica]> |
+     * <[ExpresionRelacional]> | <[ExpresionRelacional]>
      *
      * @return expresion{@link Expresion}
      */
@@ -578,8 +578,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una expresion logica
      *
-     * <[ExpresionLogica ]>::= <[ExpresionRelacional ]> [operadorLogico
-     * <[ExpresionLogica ]>] | parentesisIzquierdo <[ ExpresionLogica]>
+     * <[ExpresionLogica]>::= <[ExpresionRelacional]> [operadorLogico
+     * <[ExpresionLogica]>] | parentesisIzquierdo <[ExpresionLogica]>
      * parentesisDerecho
      *
      * @return expresionLogica{@link ExpresionLogica}
@@ -629,9 +629,9 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es una expresion relacional
      *
-     * <[ExpresionRelacional ]>::= <[ ExpresionAritmetica]>
-     * [operadorRelacional <[ ExpresionRelacional]>] | parentesisIzquierdo
-     * <[ExpresionRelacional ]> parentesisDerecho
+     * <[ExpresionRelacional]>::= <[ExpresionAritmetica]>
+     * [operadorRelacional <[ExpresionRelacional]>] | parentesisIzquierdo
+     * <[ExpresionRelacional]> parentesisDerecho
      *
      * @return expresionLogica{@link ExpresionRelacional}
      */
@@ -796,8 +796,8 @@ class AnalizadorSintactico(
     /**
      * Metodo que verifica si es un llamado a una funcion
      *
-     * <[LlamadoFuncion ]>::= identificadorFuncion parentesisIzquierdo <"Lista"
-     * [Termino ]> parentesisDerecho fin
+     * <[LlamadoFuncion]>::= identificadorFuncion parentesisIzquierdo <"Lista"
+     * [Termino]> parentesisDerecho fin
      *
      * @return llamadoFuncion{@link LlamadoFuncion}
      */
@@ -842,10 +842,10 @@ class AnalizadorSintactico(
      * @return ciclo{@link Ciclo}
      */
     private fun esCiclo(): Ciclo? {
-        if (tokenActual.lexema.equals("ciclo")) {
+        if (tokenActual.lexema == "ciclo") {
             val ciclo = tokenActual
             obtenerSiguienteToken()
-            if (tokenActual.lexema.equals("mientras")) {
+            if (tokenActual.lexema == "mientras") {
                 val mientras = tokenActual
                 obtenerSiguienteToken()
                 if (tokenActual.categoria == Categoria.PARENTESIS_IZQUIERDO) {
@@ -880,6 +880,7 @@ class AnalizadorSintactico(
                             reportarError("Falta parentesis derecho", tokenActual.fila, tokenActual.columna,
                                     tokenActual.columnaReal)
                         }
+                    } else {
                     }
                 } else {
                     reportarError("Falta parentesis izquierdo", tokenActual.fila, tokenActual.columna,
@@ -908,13 +909,13 @@ class AnalizadorSintactico(
             val termino = esTermino()
             if (termino != null) {
                 obtenerSiguienteToken()
-                if (tokenActual.lexema.equals("fin")) {
+                if (tokenActual.lexema == "fin") {
                     return Retorno(retorno, termino)
                 } else {
                     hacerBactracking(posInicial)
                     val expresion = esExpresion()
                     if (expresion != null) {
-                        if (tokenActual.lexema.equals("fin")) {
+                        if (tokenActual.lexema == "fin") {
                             return Retorno(retorno, Termino(expresion))
                         } else {
                             reportarError("Fala fin de sentencia", tokenActual.fila, tokenActual.columna,
@@ -946,7 +947,7 @@ class AnalizadorSintactico(
      */
     private fun esImpresion(): Impresion? {
         val escribir = tokenActual
-        if (tokenActual.lexema.equals("imprimir")) {
+        if (escribir.lexema == "imprimir") {
             obtenerSiguienteToken()
             if (tokenActual.categoria == Categoria.PARENTESIS_IZQUIERDO) {
                 obtenerSiguienteToken()
@@ -956,21 +957,21 @@ class AnalizadorSintactico(
                     obtenerSiguienteToken()
                     if (tokenActual.categoria == Categoria.PARENTESIS_DERECHO) {
                         obtenerSiguienteToken()
-                        if (tokenActual.lexema.equals("fin")) {
+                        if (tokenActual.lexema == "fin") {
                             return Impresion(escribir, termino)
                         } else {
                             reportarError("Falta la sentencia Fin", tokenActual.fila, tokenActual.columna,
                                     tokenActual.columnaReal)
                         }
                     } else {
-                        if (tokenActual.lexema.equals("(+)")) {
+                        if (tokenActual.lexema == "(+)") {
                             hacerBactracking(posBack)
                             val expresion: Expresion? = esExpresionCadena()
                             if (expresion != null) {
                                 termino = Termino(expresion)
                                 if (tokenActual.categoria == Categoria.PARENTESIS_DERECHO) {
                                     obtenerSiguienteToken()
-                                    if (tokenActual.lexema.equals("fin")) {
+                                    if (tokenActual.lexema == "fin") {
                                         return Impresion(escribir, termino)
                                     } else {
                                         reportarError("Falta la sentencia Fin", tokenActual.fila,
@@ -1014,7 +1015,7 @@ class AnalizadorSintactico(
             val termino = esTermino()
             if (termino != null) {
                 obtenerSiguienteToken()
-                if (tokenActual.lexema.equals("(+)")) {
+                if (tokenActual.lexema == "(+)") {
                     obtenerSiguienteToken()
                     val expresionCadena = esExpresionCadena()
                     if (expresionCadena != null) {
@@ -1049,7 +1050,7 @@ class AnalizadorSintactico(
             if (tokenActual.categoria == Categoria.OPERADOR_ASIGNACION) {
                 val opAsignacion = tokenActual
                 obtenerSiguienteToken()
-                if (tokenActual.lexema.equals("leer")) {
+                if (tokenActual.lexema == "leer") {
                     val leer = tokenActual
                     obtenerSiguienteToken()
                     if (tokenActual.categoria == Categoria.PARENTESIS_IZQUIERDO) {
@@ -1059,7 +1060,7 @@ class AnalizadorSintactico(
                             obtenerSiguienteToken()
                             if (tokenActual.categoria == Categoria.PARENTESIS_DERECHO) {
                                 obtenerSiguienteToken()
-                                if (tokenActual.lexema.equals("fin")) {
+                                if (tokenActual.lexema == "fin") {
                                     return Lectura(idVariable, opAsignacion, leer, tipoDato)
                                 } else {
                                     reportarError("Falta fin de sentencia", tokenActual.fila,
@@ -1113,7 +1114,7 @@ class AnalizadorSintactico(
                     val listaIdentificador = esListaIdentificadores()
                     if (listaIdentificador != null) {
                         obtenerSiguienteToken()
-                        if (tokenActual.lexema.equals("fin")) {
+                        if (tokenActual.lexema == "fin") {
                             return DeclaracionVariable(visibilidad, tipoDato, arreglo, listaIdentificador)
                         } else {
                             reportarError("Falta fin de sentencia", tokenActual.fila, tokenActual.columna,
@@ -1126,7 +1127,7 @@ class AnalizadorSintactico(
                 } else {
                     val listaIdentificador = esListaIdentificadores()
                     if (listaIdentificador != null) {
-                        if (tokenActual.lexema.equals("fin")) {
+                        if (tokenActual.lexema == "fin") {
                             return DeclaracionVariable(visibilidad, tipoDato, listaIdentificador)
                         } else {
                             reportarError("Falta fin de sentencia", tokenActual.fila, tokenActual.columna,
@@ -1151,7 +1152,7 @@ class AnalizadorSintactico(
                     val listaIdentificador = esListaIdentificadores()
                     if (listaIdentificador != null) {
                         obtenerSiguienteToken()
-                        if (tokenActual.lexema.equals("fin")) {
+                        if (tokenActual.lexema == "fin") {
                             return DeclaracionVariable(arreglo, listaIdentificador, tipoDato)
                         } else {
                             reportarError("Falta fin de sentencia", tokenActual.fila, tokenActual.columna,
@@ -1164,7 +1165,7 @@ class AnalizadorSintactico(
                 } else {
                     val listaIdentificador = esListaIdentificadores()
                     if (listaIdentificador != null) {
-                        if (tokenActual.lexema.equals("fin")) {
+                        if (tokenActual.lexema == "fin") {
                             return DeclaracionVariable(tipoDato, listaIdentificador)
                         } else {
                             reportarError("Falta fin de sentencia", tokenActual.fila, tokenActual.columna,
@@ -1202,7 +1203,7 @@ class AnalizadorSintactico(
                 var termino = esTermino()
                 if (termino != null) {
                     obtenerSiguienteToken()
-                    if (tokenActual.lexema.equals("fin")) {
+                    if (tokenActual.lexema == "fin") {
                         return AsignacionVariable(identificador, operadorAsignacion, termino)
                     } else {
                         if (tokenActual.categoria == Categoria.OPERADOR_ARITMETICO || tokenActual.categoria == Categoria.OPERADOR_LOGICO || tokenActual.categoria == Categoria.OPERADOR_RELACIONAL) {
@@ -1210,7 +1211,7 @@ class AnalizadorSintactico(
                             val expresion = esExpresion()
                             if (expresion != null) {
                                 termino = Termino(expresion)
-                                if (tokenActual.lexema.equals("fin")) {
+                                if (tokenActual.lexema == "fin") {
                                     return AsignacionVariable(identificador, operadorAsignacion, termino)
                                 } else {
                                     reportarError("Falta fin de sentencia", tokenActual.fila,
@@ -1251,10 +1252,10 @@ class AnalizadorSintactico(
         if (tokenActual.categoria == Categoria.IDENTIFICADOR_VARIABLE) {
             val indentificadorVariable = tokenActual
             obtenerSiguienteToken()
-            if (tokenActual.lexema.equals("inc")) {
+            if (tokenActual.lexema == "inc") {
                 val incremento = tokenActual
                 obtenerSiguienteToken()
-                if (tokenActual.lexema.equals("fin")) {
+                if (tokenActual.lexema == "fin") {
                     return SentenciaIncremento(indentificadorVariable, incremento)
                 } else {
                     reportarError("Falta Fin", tokenActual.fila, tokenActual.columna,
@@ -1279,10 +1280,10 @@ class AnalizadorSintactico(
         if (tokenActual.categoria == Categoria.IDENTIFICADOR_VARIABLE) {
             val indentificadorVariable = tokenActual
             obtenerSiguienteToken()
-            if (tokenActual.lexema.equals("dec")) {
+            if (tokenActual.lexema == "dec") {
                 val incremento = tokenActual
                 obtenerSiguienteToken()
-                if (tokenActual.lexema.equals("fin")) {
+                if (tokenActual.lexema == "fin") {
                     return SentenciaIncremento(indentificadorVariable, incremento)
                 } else {
                     reportarError("Falta Fin", tokenActual.fila, tokenActual.columna,

@@ -21,11 +21,22 @@
   <component name="ChangeListManager">
     <list default="true" id="8c759660-04a9-4976-b5ae-b074ff29f5ed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compiler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Compiler.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compiler/META-INF/Compiler.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compiler/META-INF/Compiler.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorVentana.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controlador/ControladorVentana.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/VentanaCompilador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/VentanaCompilador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/AnalizadorSintactico.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/AnalizadorSintactico.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/AsignacionVariable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/AsignacionVariable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/Ciclo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Ciclo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/Condicional.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Condicional.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/CuerpoClase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/CuerpoClase.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/DeclaracionVariable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/DeclaracionVariable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/ErrorSintactico.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/ErrorSintactico.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/Expresion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Expresion.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/ExpresionAritmetica.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/ExpresionAritmetica.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/ExpresionCadena.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/ExpresionCadena.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/ExpresionLogica.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/ExpresionLogica.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/ExpresionRelacional.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/ExpresionRelacional.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/Funcion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Funcion.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/Impresion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Impresion.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/Lectura.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Lectura.kt" afterDir="false" />
@@ -36,6 +47,7 @@
       <change beforePath="$PROJECT_DIR$/src/sintaxis/SentenciaIncremento.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/SentenciaIncremento.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/Termino.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/Termino.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sintaxis/UnidadCompilacion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/UnidadCompilacion.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sintaxis/ValorAsignacion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sintaxis/ValorAsignacion.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,10 +89,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537763216126" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../AnalizadorKT" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../End Proyect/scriptValidador.py" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RunManager" selected="Application.Aplicacion (1)">
@@ -142,39 +154,61 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="70" width="814" height="729" key="#Intentions/0.0.1536.824@0.0.1536.824" timestamp="1605584309715" />
-    <state x="130" y="0" key="#Project_Structure" timestamp="1605646435521">
-      <screen x="0" y="0" width="1300" height="768" />
+    <state x="275" y="40" key="#Plugins" timestamp="1606521527962">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="275" y="40" key="#Plugins/0.30.1366.738@0.30.1366.738" timestamp="1606521527962" />
+    <state x="130" y="0" key="#Project_Structure" timestamp="1606343389488">
+      <screen x="0" y="0" width="1301" height="768" />
     </state>
     <state x="130" y="0" key="#Project_Structure/0.0.1300.768@0.0.1300.768" timestamp="1605646435521" />
-    <state x="431" y="139" key="FileChooserDialogImpl" timestamp="1606278508207">
-      <screen x="0" y="0" width="1302" height="768" />
+    <state x="130" y="0" key="#Project_Structure/0.0.1301.768@0.0.1301.768" timestamp="1606343389488" />
+    <state x="474" y="115" key="#com.intellij.ide.util.MemberChooser" timestamp="1606573272200">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="474" y="115" key="#com.intellij.ide.util.MemberChooser/0.30.1366.738@0.30.1366.738" timestamp="1606573272200" />
+    <state x="363" y="135" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1606517450463">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="363" y="135" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.30.1366.738@0.30.1366.738" timestamp="1606517450463" />
+    <state x="431" y="139" key="FileChooserDialogImpl" timestamp="1606341750244">
+      <screen x="0" y="0" width="1301" height="768" />
     </state>
     <state x="430" y="139" key="FileChooserDialogImpl/0.0.1300.768@0.0.1300.768" timestamp="1605840406482" />
+    <state x="431" y="139" key="FileChooserDialogImpl/0.0.1301.768@0.0.1301.768" timestamp="1606341750244" />
     <state x="431" y="139" key="FileChooserDialogImpl/0.0.1302.768@0.0.1302.768" timestamp="1606278508207" />
-    <state width="1259" height="530" key="GridCell.Tab.0.bottom" timestamp="1606277649835">
-      <screen x="0" y="0" width="1302" height="768" />
+    <state width="1323" height="154" key="GridCell.Tab.0.bottom" timestamp="1606573924397">
+      <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state width="1257" height="192" key="GridCell.Tab.0.bottom/0.0.1300.768@0.0.1300.768" timestamp="1605844924684" />
+    <state width="1258" height="155" key="GridCell.Tab.0.bottom/0.0.1301.768@0.0.1301.768" timestamp="1606357664599" />
     <state width="1259" height="530" key="GridCell.Tab.0.bottom/0.0.1302.768@0.0.1302.768" timestamp="1606277649835" />
     <state width="1462" height="259" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605587077391" />
-    <state width="1259" height="530" key="GridCell.Tab.0.center" timestamp="1606277649834">
-      <screen x="0" y="0" width="1302" height="768" />
+    <state width="1323" height="154" key="GridCell.Tab.0.bottom/0.30.1366.738@0.30.1366.738" timestamp="1606573924397" />
+    <state width="1323" height="154" key="GridCell.Tab.0.center" timestamp="1606573924396">
+      <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state width="1257" height="192" key="GridCell.Tab.0.center/0.0.1300.768@0.0.1300.768" timestamp="1605844924683" />
+    <state width="1258" height="155" key="GridCell.Tab.0.center/0.0.1301.768@0.0.1301.768" timestamp="1606357664597" />
     <state width="1259" height="530" key="GridCell.Tab.0.center/0.0.1302.768@0.0.1302.768" timestamp="1606277649834" />
     <state width="1462" height="259" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605587077391" />
-    <state width="1259" height="530" key="GridCell.Tab.0.left" timestamp="1606277649834">
-      <screen x="0" y="0" width="1302" height="768" />
+    <state width="1323" height="154" key="GridCell.Tab.0.center/0.30.1366.738@0.30.1366.738" timestamp="1606573924396" />
+    <state width="1323" height="154" key="GridCell.Tab.0.left" timestamp="1606573924396">
+      <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state width="1257" height="192" key="GridCell.Tab.0.left/0.0.1300.768@0.0.1300.768" timestamp="1605844924683" />
+    <state width="1258" height="155" key="GridCell.Tab.0.left/0.0.1301.768@0.0.1301.768" timestamp="1606357664595" />
     <state width="1259" height="530" key="GridCell.Tab.0.left/0.0.1302.768@0.0.1302.768" timestamp="1606277649834" />
     <state width="1462" height="259" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605587077391" />
-    <state width="1259" height="530" key="GridCell.Tab.0.right" timestamp="1606277649835">
-      <screen x="0" y="0" width="1302" height="768" />
+    <state width="1323" height="154" key="GridCell.Tab.0.left/0.30.1366.738@0.30.1366.738" timestamp="1606573924396" />
+    <state width="1323" height="154" key="GridCell.Tab.0.right" timestamp="1606573924397">
+      <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state width="1257" height="192" key="GridCell.Tab.0.right/0.0.1300.768@0.0.1300.768" timestamp="1605844924684" />
+    <state width="1258" height="155" key="GridCell.Tab.0.right/0.0.1301.768@0.0.1301.768" timestamp="1606357664598" />
     <state width="1259" height="530" key="GridCell.Tab.0.right/0.0.1302.768@0.0.1302.768" timestamp="1606277649835" />
     <state width="1462" height="259" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605587077391" />
+    <state width="1323" height="154" key="GridCell.Tab.0.right/0.30.1366.738@0.30.1366.738" timestamp="1606573924397" />
     <state width="1259" height="239" key="GridCell.Tab.1.bottom" timestamp="1605930060667">
       <screen x="0" y="0" width="1302" height="768" />
     </state>
@@ -199,6 +233,14 @@
       <screen x="0" y="0" width="1302" height="768" />
     </state>
     <state x="202" y="120" width="898" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1302.768@0.0.1302.768" timestamp="1605918264076" />
+    <state x="148" y="67" key="new project wizard" timestamp="1606343621082">
+      <screen x="0" y="0" width="1301" height="768" />
+    </state>
+    <state x="148" y="67" key="new project wizard/0.0.1301.768@0.0.1301.768" timestamp="1606343621082" />
+    <state x="526" y="170" key="refactoring.ChangeSignatureDialog" timestamp="1606512692467">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="526" y="170" key="refactoring.ChangeSignatureDialog/0.30.1366.738@0.30.1366.738" timestamp="1606512692467" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -214,6 +256,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AnalizadorKT$Aplicacion__1_.ic" NAME="Aplicacion (1) Coverage Results" MODIFIED="1606273232702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

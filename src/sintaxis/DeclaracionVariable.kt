@@ -1,6 +1,8 @@
 package sintaxis
 
 import lexico.Token
+import semantico.Simbolo
+import semantico.TablaSimbolos
 import java.util.*
 import javax.swing.tree.DefaultMutableTreeNode
 
@@ -78,5 +80,67 @@ class DeclaracionVariable : Sentencia {
         this.listaId = listaId
     }
 
+    /**
+     * Método para retornar el nodo de un arbol visual
+     *
+     * @return
+     */
+    override fun getArbolVisual(): DefaultMutableTreeNode{
+        val nodo = DefaultMutableTreeNode("Declaracion variable")
+        if (visibilidad != null) {
+            nodo.add(DefaultMutableTreeNode(visibilidad!!.lexema))
+        }
+        if (arreglo != null) {
+            nodo.add(DefaultMutableTreeNode(arreglo!!.lexema))
+        }
+        nodo.add(DefaultMutableTreeNode(tipo.lexema))
+        for (id in listaId) {
+            nodo.add(DefaultMutableTreeNode(id.lexema))
+        }
+        return nodo
+    }
 
+
+
+    override fun llenarTablaSimbolos(ts: TablaSimbolos?, ambito: Simbolo?) {
+        for (token in listaId) {
+            if (ambito != null &&  ts != null) {
+
+                    ts.agregarSimbolo(token.lexema, tipo.lexema, ambito)
+
+            }
+        }
+    }
+
+
+
+    override fun analizarSemantica(errores: ArrayList<String?>?, ts: TablaSimbolos?, ambito: Simbolo?) {
+        // TODO Auto-generated method stub
+    }
+
+    override fun traducir(identacion: String?, global: Boolean): String? {
+        var visibilidad = ""
+        if (this.visibilidad != null) {
+            visibilidad = if (this.visibilidad!!.lexema == "visible") "public" else "private"
+        }
+        val arreglo = if (arreglo != null) "[]" else ""
+        var variables = ""
+        for (token in listaId) {
+            variables = token.lexema + ", "
+        }
+        variables = variables.replace("<".toRegex(), "")
+        variables = variables.replace(">".toRegex(), "")
+        variables = variables.replace("-".toRegex(), "_")
+        variables = variables.substring(0, variables.length - 2)
+        var tipo = ""
+        tipo = when (this.tipo.lexema) {
+            "ltr" -> "char"
+            "ntr" -> "int"
+            "pntdec" -> "double"
+            "ltrarr" -> "String"
+            "binary" -> "boolean"
+            else -> ""
+        }
+        return identacion + visibilidad + (if (global) " static " else "") + tipo + arreglo + " " + variables
+    }
 }
